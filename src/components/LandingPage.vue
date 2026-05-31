@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 
-const emit = defineEmits(['start'])
+const emit = defineEmits(['start', 'dashboard'])
 const isVisible = ref(false)
 
 onMounted(() => {
@@ -12,6 +12,10 @@ onMounted(() => {
 
 const handleStart = () => {
   emit('start')
+}
+
+const handleDashboard = () => {
+  emit('dashboard')
 }
 </script>
 
@@ -101,7 +105,13 @@ const handleStart = () => {
     </div>
 
     <div class="w-full text-center py-4">
-      <p class="text-white/30 text-xs">© 2024 大学生自媒体潜力测评</p>
+      <p class="text-white/30 text-xs mb-2">© 2024 大学生自媒体潜力测评</p>
+      <button 
+        @click="handleDashboard"
+        class="text-white/40 hover:text-white/60 text-xs transition"
+      >
+        📊 管理后台
+      </button>
     </div>
   </div>
 </template>

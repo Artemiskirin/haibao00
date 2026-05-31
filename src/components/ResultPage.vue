@@ -76,12 +76,25 @@ const submitForm = async () => {
   await new Promise(resolve => setTimeout(resolve, 1500))
   
   const submitData = {
-    ...formData.value,
-    result: props.result,
+    wechat: formData.value.wechat,
+    phone: formData.value.phone,
+    school: formData.value.school,
+    grade: formData.value.grade,
+    talentIndex: props.result.talentIndex,
+    超越同龄人: props.result.超越同龄人,
+    topType: props.result.topTypes[0]?.type || '',
+    secondType: props.result.topTypes[1]?.type || '',
+    thirdType: props.result.topTypes[2]?.type || '',
+    topMatchPercent: props.result.topTypes[0]?.matchPercent || 0,
+    secondMatchPercent: props.result.topTypes[1]?.matchPercent || 0,
+    thirdMatchPercent: props.result.topTypes[2]?.matchPercent || 0,
     submitTime: new Date().toISOString()
   }
   
-  localStorage.setItem('submittedForm', JSON.stringify(submitData))
+  const existingData = localStorage.getItem('submittedForms')
+  const submissions = existingData ? JSON.parse(existingData) : []
+  submissions.push(submitData)
+  localStorage.setItem('submittedForms', JSON.stringify(submissions))
   
   isSubmitting.value = false
   formSubmitted.value = true
